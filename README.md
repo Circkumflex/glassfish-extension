@@ -53,7 +53,7 @@ user-columns:<names of all user login fields separated with ",">
     <property name="group-table-user-name-column" value="<name of user column of group table>"></property>
     <property name="digest-algorithm" value="none"></property>
     <property name="user-name-column" value="<name of user id column>"></property>
-    <property name="user-columns" value="<names of all user login columns separated with ",">"></property>
+    <property name="user-columns" value="<names of all user login columns separated with ','>"></property>
 </auth-realm>
 ```
 
