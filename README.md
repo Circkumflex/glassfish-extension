@@ -37,7 +37,7 @@ user-columns:<names of all user login fields separated with ",">
 * Add LoginModule mapping to login.conf:
 ```
 <realm, context name> {
-	com.glassfish.extension.auth.login.MultipleLoginModule required;
+    com.glassfish.extension.auth.login.MultipleLoginModule required;
 };
 ```
 
@@ -75,7 +75,7 @@ digest-algorithm:none
 * Add LoginModule mapping to login.conf:
 ```
 <realm, context name> {
-	com.glassfish.extension.auth.login.MultipleLoginModule required;
+    com.glassfish.extension.auth.login.MultipleLoginModule required;
 };
 ```
 
