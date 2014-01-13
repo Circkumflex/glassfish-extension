@@ -8,16 +8,19 @@ Specific extension for Glassfish 4. Currently contains:
 * BasicSecuredRestRealm implementation dependent on RestLoginModule. Specially implemented for third side services secured with basic authentication.
 * AuthenticationDescriptor - model, which third side service should return as a JSON string.
 
-Using
-=====
+Using of library
+================
 
 * Add library jar files to server libraries. _IMPORTANT!_ For example: ../domain1/lib. Do not push it to subfolders of ../domain1/lib.
 * Configure realm in Glassfish (in case of exception at Admin console do it manually in domain.xml).
 * Configure application to use previously configured realm.
 
-Using of FieldsBasedJDBCRealm
-=============================
+FieldsBasedJDBCRealm
+====================
 
+FieldsBasedJDBCRealm based on JDBCRealm of Glassfish server, but extends it for support multiple login field (for example: username and email).This realm has all possibilities of basic JDBCRealm, but also it provides new property _'user-columns'_, which accept names of all login fields separated with ",".
+
+Configuring:
 * Set the name of realm
 * Choose class of realm: __com.glassfish.extension.auth.realm.jdbc.FieldsBasedJDBCRealm__
 * Add next properties with the following values for field based realm:
@@ -57,9 +60,16 @@ user-columns:<names of all user login fields separated with ",">
 </auth-realm>
 ```
 
-Using of QueryBasedJDBCRealm
-============================
+QueryBasedJDBCRealm
+===================
 
+QueryBasedJDBCRealm based on JDBCRealm of Glassfish server, but it was rewrote for support more flexible configuration. This realm accept just three SQL-queries for:
+* selecting actual id of user (it also allows to have multiple login fields)
+* selecting password of user
+* selecting groups of user
+It needs to know SQL basics, but it's much easier to use.
+
+Configuring:
 * Set the name of realm
 * Choose class of realm: __com.glassfish.extension.auth.realm.jdbc.QueryBasedJDBCRealm__
 * Add next properties with the following values for query based realm:
@@ -91,6 +101,36 @@ digest-algorithm:none
 </auth-realm>
 ```
 
+BasicSecuredRestRealm
+=====================
+
+BasicSecuredRestRealm allows to use BASIC-secured third-part service to authenticate user. During authentication it requests remote service, which should return JSON string as a result of converting of __AuthenticationDescriptor__.
+
+* Set the name of realm
+* Choose class of realm: com.glassfish.extension.auth.realm.rest.BasicSecuredRestRealm
+* Add next properties with the following values for realm:
+```
+jaas-context:<realm, context name>
+service-uri:<url of authentication service, for example:http://localhost:8080/your-services/auth>
+digest-algorithm:none
+```
+
+* Add LoginModule mapping to login.conf:
+```
+<realm, context name> {
+	com.glassfish.extension.auth.login.RestLoginModule required;
+};
+```
+
+* Restart server and check domain.xml, it should contains following block for realm:
+```xml
+<auth-realm name="<realm, context name>" classname="com.glassfish.extension.auth.realm.rest.BasicSecuredRestRealm">
+    <property name="jaas-context" value="<realm, context name>"></property>
+    <property name="service-uri" value="<url of authentication service, for example:http://localhost:8080/your-services/auth>"></property>
+    <property name="digest-algorithm" value="none"></property>
+</auth-realm>
+```
+
 Configuring of application
 ==========================
 
@@ -102,4 +142,3 @@ special mapping to this name.
     <realm-name><realm, context name></realm-name>
 </login-config>
 ```
-
