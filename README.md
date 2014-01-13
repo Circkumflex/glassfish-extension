@@ -108,7 +108,7 @@ BasicSecuredRestRealm allows to use BASIC-secured third-part service to authenti
 
 Configuring:
 * Set the name of realm
-* Choose class of realm: com.glassfish.extension.auth.realm.rest.BasicSecuredRestRealm
+* Choose class of realm: __com.glassfish.extension.auth.realm.rest.BasicSecuredRestRealm__
 * Add next properties with the following values for realm:
 ```
 jaas-context:<realm, context name>
