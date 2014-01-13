@@ -106,6 +106,7 @@ BasicSecuredRestRealm
 
 BasicSecuredRestRealm allows to use BASIC-secured third-part service to authenticate user. During authentication it requests remote service, which should return JSON string as a result of converting of __AuthenticationDescriptor__.
 
+Configuring:
 * Set the name of realm
 * Choose class of realm: com.glassfish.extension.auth.realm.rest.BasicSecuredRestRealm
 * Add next properties with the following values for realm:
