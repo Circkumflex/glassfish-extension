@@ -1,5 +1,5 @@
-Glassfish-extension library
-===================
+Glassfish-realm-extension
+=========================
 
 Specific extension for Glassfish 4. Currently contains:
 * MultipleLoginModule which implements logic of multiple login for single principle. For instance: id, login, email.
@@ -8,8 +8,8 @@ Specific extension for Glassfish 4. Currently contains:
 * BasicSecuredRestRealm implementation dependent on RestLoginModule. Specially implemented for third side services secured with basic authentication.
 * AuthenticationDescriptor - model, which third side service should return as a JSON string.
 
-Using of library
-================
+Usage
+=====
 
 * Add library jar files to server libraries. _IMPORTANT!_ For example: ../domain1/lib. Do not push it to subfolders of ../domain1/lib.
 * Configure realm in Glassfish (in case of exception at Admin console do it manually in domain.xml).
